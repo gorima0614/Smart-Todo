@@ -1,0 +1,48 @@
+🧪 Sample Context Data (JSON format)
+[
+  {
+    "content": "Urgent: Submit the audit file by Friday evening",
+    "source": "email"
+  },
+  {
+    "content": "Reminder: Dentist appointment on Saturday at 10 AM",
+    "source": "notes"
+  },
+  {
+    "content": "Team meeting postponed to Monday 11 AM",
+    "source": "whatsapp"
+  },
+  {
+    "content": "Buy groceries after 5 PM",
+    "source": "notes"
+  },
+  {
+    "content": "Pay electricity bill before due date on 7th July",
+    "source": "email"
+  },
+  {
+    "content": "Client wants final proposal by end of this week",
+    "source": "email"
+  },
+  {
+    "content": "Workout routine updated: cardio 3x this week",
+    "source": "notes"
+  },
+  {
+    "content": "Bank statement shows payment error, needs follow-up",
+    "source": "email"
+  }
+]
+
+🛠️ Usage in API Testing
+You can POST these individually to /api/contexts/:
+
+Example:
+POST /api/contexts/
+Content-Type: application/json
+
+{
+  "content": "Client wants final proposal by end of this week",
+  "source": "email"
+}
+
