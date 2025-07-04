@@ -1,0 +1,35 @@
+📄 requirements.txt
+# Core Django & REST Framework
+Django>=4.2,<5.0
+djangorestframework>=3.14
+django-cors-headers>=4.0
+
+# OpenAI Integration
+openai>=1.3.7
+
+# PostgreSQL (for Supabase or production)
+psycopg2-binary>=2.9
+
+# Environment variable support
+python-dotenv>=1.0.0
+
+# WSGI server for deployment (e.g., on Render/Heroku)
+gunicorn>=21.2.0
+
+# Optional: Better datetime handling
+pytz>=2023.3
+
+# Optional: Auto doc generation (Swagger / OpenAPI)
+drf-yasg>=1.21.6
+
+# Optional: For type hinting and linting
+types-requests
+
+🛠️ How to Use
+Create your virtual environment:
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+
+Install all requirements:
+pip install -r requirements.txt
+
