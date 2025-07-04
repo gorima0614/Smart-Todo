@@ -1,1 +1,89 @@
 http://localhost:8000/api/
+
+Endpoints Overview
+| Method | Endpoint                 | Description                            |
+| ------ | ------------------------ | -------------------------------------- |
+| GET    | `/tasks/`                | List all tasks                         |
+| POST   | `/tasks/`                | Create a new task                      |
+| GET    | `/categories/`           | List available categories/tags         |
+| GET    | `/contexts/`             | List all context entries               |
+| POST   | `/contexts/`             | Add a new context (message/email/note) |
+| POST   | `/contexts/suggestions/` | Get AI-powered task suggestions        |
+
+📌 1. GET /tasks/
+Description: Fetch all tasks with priority, status, and deadline.
+
+Response:
+[
+  {
+    "id": 1,
+    "title": "Submit report",
+    "description": "Finish the quarterly report",
+    "priority_score": 8,
+    "deadline": "2025-07-06",
+    "category": "Work",
+    "status": "pending"
+  }
+]
+
+
+📌 2. POST /tasks/
+Description: Create a new task.
+
+Request Body:
+{
+  "title": "Buy groceries",
+  "description": "Milk, eggs, bread",
+  "category": "Personal",
+  "status": "pending"
+}
+
+📌 3. GET /categories/
+Description: Returns list of all categories/tags.
+
+Response:
+[
+  { "id": 1, "name": "Work" },
+  { "id": 2, "name": "Personal" }
+]
+
+
+📌 4. GET /contexts/
+Description: Returns all saved daily context (notes, messages).
+
+Response:
+[
+  {
+    "id": 1,
+    "content": "Client call tomorrow at 10 AM",
+    "source": "WhatsApp",
+    "timestamp": "2025-07-04T14:00:00Z"
+  }
+]
+
+📌 5. POST /contexts/
+Description: Add a new context entry (note, message, email).
+
+Request Body:
+{
+  "content": "Doctor appointment at 3 PM",
+  "source": "notes"
+}
+
+📌 6. POST /contexts/suggestions/
+Description: AI analyzes context and existing tasks to generate enhanced tasks.
+
+Request Body:
+{}
+Response:
+[
+  {
+    "title": "Call client about meeting",
+    "enhanced_description": "Based on message: 'client call tomorrow', ensure agenda is prepared.",
+    "priority_score": 10,
+    "suggested_deadline": "2025-07-05",
+    "suggested_category": "Work"
+  },
+ 
+]
+
