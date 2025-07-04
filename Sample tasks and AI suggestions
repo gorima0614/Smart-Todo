@@ -1,0 +1,77 @@
+📝 Input: Sample Context Entries
+[
+  {
+    "content": "Doctor appointment at 4 PM today",
+    "source": "notes"
+  },
+  {
+    "content": "Project deadline moved to Friday",
+    "source": "email"
+  },
+  {
+    "content": "Reminder: Submit tax documents before end of week",
+    "source": "email"
+  },
+  {
+    "content": "Urgent: Call with client rescheduled to 2 PM tomorrow",
+    "source": "whatsapp"
+  }
+]
+
+✅ Input: Sample Tasks
+[
+  {
+    "title": "Finish report",
+    "description": "Complete financial analysis section for Q2"
+  },
+  {
+    "title": "Book cab",
+    "description": "Arrange travel for doctor appointment"
+  },
+  {
+    "title": "Prepare for meeting",
+    "description": "Create agenda for client call"
+  },
+  {
+    "title": "File taxes",
+    "description": "Complete income tax filing online"
+  }
+]
+
+🧠 AI-Powered Suggestions
+1️⃣ Task: Finish report
+{
+  "title": "Finish report",
+  "enhanced_description": "Complete the financial analysis section for Q2 and finalize data by Friday as project deadline was moved.",
+  "priority_score": 10,
+  "suggested_deadline": "2025-07-05",
+  "suggested_category": "Work"
+}
+
+2️⃣ Task: Book cab
+{
+  "title": "Book cab",
+  "enhanced_description": "Book a cab by 3 PM for your doctor appointment today at 4 PM.",
+  "priority_score": 8,
+  "suggested_deadline": "2025-07-04",
+  "suggested_category": "Health"
+}
+
+3️⃣ Task: Prepare for meeting
+{
+  "title": "Prepare for meeting",
+  "enhanced_description": "Create a meeting agenda and talking points for client call rescheduled to 2 PM tomorrow.",
+  "priority_score": 9,
+  "suggested_deadline": "2025-07-05",
+  "suggested_category": "Work"
+}
+
+4️⃣ Task: File taxes
+{
+  "title": "File taxes",
+  "enhanced_description": "Submit all tax documents online before the end of this week as per email reminder.",
+  "priority_score": 10,
+  "suggested_deadline": "2025-07-06",
+  "suggested_category": "Finance"
+}
+
