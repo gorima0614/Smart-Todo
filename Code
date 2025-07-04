@@ -1,0 +1,117 @@
+### ai_utils.py (AI logic)
+
+import os
+import openai
+from datetime import date, timedelta
+
+# Set your OpenAI API key from environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+class AIHelper:
+    """
+    A helper class to handle AI-powered task management operations.
+    """
+
+    def __init__(self):
+        self.model = "gpt-4"
+
+    def get_ai_response(self, prompt):
+        """
+        Sends a prompt to the OpenAI API and retrieves the response.
+        """
+        try:
+            response = openai.ChatCompletion.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant for managing tasks."},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            return response.choices[0].message["content"].strip()
+        except Exception as e:
+            return f"Error: {e}"
+
+    def analyze_context(self, context_entries):
+        """
+        Analyzes context entries for urgency and load.
+        """
+        keywords = ["urgent", "asap", "important", "meeting", "deadline"]
+        insights = []
+        all_text = " ".join([entry.content.lower() for entry in context_entries])
+
+        for keyword in keywords:
+            if keyword in all_text:
+                insights.append(f"Found keyword: {keyword}")
+
+        return {
+            "insights": insights,
+            "user_load": "heavy" if len(context_entries) > 5 else "light"
+        }
+
+    def prioritize_tasks(self, tasks, context_insights):
+        """
+        Assigns priority scores to tasks based on context.
+        """
+        for task in tasks:
+            description = task.description.lower()
+            if any(kw in description for kw in ["urgent", "important"]):
+                task.priority_score = 10
+            else:
+                task.priority_score = 5
+
+        return sorted(tasks, key=lambda t: t.priority_score, reverse=True)
+
+    def suggest_deadline(self, task_description, context_insights):
+        """
+        Suggests deadlines based on task urgency.
+        """
+        if "urgent" in task_description.lower():
+            return date.today() + timedelta(days=1)
+        return date.today() + timedelta(days=3)
+
+    def categorize_task(self, task_description):
+        """
+        Uses AI to classify task into a category.
+        """
+        prompt = f"""
+        Classify the following task into one of these categories: Work, Personal, Health, Finance, Other.
+        Task: {task_description}
+        Return only the category name.
+        """
+        category = self.get_ai_response(prompt)
+        return [category if category else "General"]
+
+    def enhance_task_description(self, description, context_insights):
+        """
+        Improves task description using contextual insights and AI.
+        """
+        prompt = f"""
+        Context: {', '.join(context_insights.get('insights', []))}.
+        Description: {description}
+        Improve the task description and add any relevant context.
+        """
+        improved = self.get_ai_response(prompt)
+        return improved if improved else description
+
+    def process_context_and_suggest_tasks(self, context_entries, tasks):
+        """
+        Main pipeline: analyzes context, prioritizes tasks, and enhances them.
+        """
+        context_insights = self.analyze_context(context_entries)
+        tasks = self.prioritize_tasks(tasks, context_insights)
+
+        suggestions = []
+        for task in tasks:
+            enhanced_description = self.enhance_task_description(task.description, context_insights)
+            deadline = self.suggest_deadline(task.description, context_insights)
+            categories = self.categorize_task(task.description)
+
+            suggestions.append({
+                'title': task.title,
+                'enhanced_description': enhanced_description,
+                'priority_score': task.priority_score,
+                'suggested_deadline': str(deadline),
+                'suggested_category': categories[0] if categories else "General"
+            })
+
+        return suggestions
